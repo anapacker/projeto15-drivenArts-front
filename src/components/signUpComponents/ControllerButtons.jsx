@@ -13,12 +13,13 @@ function validaEmail(valor){
 
     const navegacao = function(pagina){
         const teste = validaEmail(controle.email);
+        alert(controle.telefone.length)
         switch(pagina){
             case 1:
                 setPagina(1);
                 break;
             case 2:
-                if(controle.nome && controle.email && controle.telefone && controle.senha && controle.confirmpassword && controle.senha === controle.confirmpassword && controle.senha.length > 2 && teste){
+                if(controle.nome && controle.email && (controle.telefone.length === 14) && controle.senha && controle.confirmpassword && controle.senha === controle.confirmpassword && controle.senha.length > 2 && teste){
                     setPagina(2);
                 } else{
                     alert("Todos os campos da primeira página de cadastro devem ser preenchidos corretamente para prosseguir!")

@@ -39,11 +39,12 @@ export default function SignUpAvatarForm(props){
 
 
     function cadastrar(){
-        const obj = {nome, email, foto, senha,telefone};
+        const newTelefone = Number(telefone.replace('(','').replace(')','').replace('-',''));
+        const obj = {nome, email, foto, senha,telefone:newTelefone};
         console.log("enviar cadastro para o servidor !");
         console.log(obj);
         alert('cadastro efetuado!');
-        navigate("/");
+        //navigate("/");
     }
 
     return(
