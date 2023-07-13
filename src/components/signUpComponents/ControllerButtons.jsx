@@ -13,7 +13,6 @@ function validaEmail(valor){
 
     const navegacao = function(pagina){
         const teste = validaEmail(controle.email);
-        alert(controle.telefone.length)
         switch(pagina){
             case 1:
                 setPagina(1);
