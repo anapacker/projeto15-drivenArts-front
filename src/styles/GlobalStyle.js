@@ -8,9 +8,10 @@ const GlobalStyle = createGlobalStyle`
     }
     button {
         outline: none;
-        border: none;
+        border: dashed 1px white;
         border-radius: 5px;
-        background: linear-gradient(to bottom, #8b9a7c, #232e17);
+        background-color: rgba(255,255,255,0.2);
+        //background: linear-gradient(to right, #8b9a7c, #232e17);
         font-size: 20px;
         font-weight: 400;
         color: #ffffff;
@@ -19,6 +20,11 @@ const GlobalStyle = createGlobalStyle`
         padding: 12px;
         margin-bottom: 10px;
     }
+    button:hover{
+        font-size: 21px;
+        text-decoration: underline;
+    }
+
     h1 {
         font-weight: 700;
         font-size: 26px;
@@ -53,6 +59,9 @@ const GlobalStyle = createGlobalStyle`
         color: white;
         text-decoration: none;
         padding-top: 30px;
+    }
+    a:hover{
+        text-decoration: underline;
     }
 `
 
