@@ -11,7 +11,7 @@ export default function SigninPage() {
             .then()
             .catch((err)=>{
                 alert(err.response.data);
-            });
+        });
     }
     
     return (

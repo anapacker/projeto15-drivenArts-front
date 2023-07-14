@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
 import ControllerButtons from "./ControllerButtons";
-import { useNavigate } from "react-router-dom";
+
 
 export default function SignUpAvatarForm(props){
 
-    const navigate = useNavigate();
-    const {setPagina, setItens, controle, confirmarlink,resetarlink} = props.valores;
+
+    const {setPagina, setItens, controle, confirmarlink,resetarlink, handleSignup} = props.valores;
     const {pagina,nome,email,foto,senha,telefone,confirmfoto} = controle;
 
     function verificarLinkImagem(url) {
@@ -39,12 +39,9 @@ export default function SignUpAvatarForm(props){
 
 
     function cadastrar(){
-        const newTelefone = Number(telefone.replace('(','').replace(')','').replace('-',''));
+        const newTelefone = telefone.replace('(','').replace(')','').replace('-','');
         const obj = {nome, email, foto, senha,telefone:newTelefone};
-        console.log("enviar cadastro para o servidor !");
-        console.log(obj);
-        alert('cadastro efetuado!');
-        //navigate("/");
+        handleSignup(obj);
     }
 
     return(
