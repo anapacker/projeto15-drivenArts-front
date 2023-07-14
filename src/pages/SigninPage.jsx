@@ -1,16 +1,27 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import DrivenArtsLogo from "../components/DrivenArtsLogo"
+import apiAuth from "../services/apiAuth";
 
 export default function SigninPage() {
+    
+    function handleLogin(e){
+        e.preventDefault();
+        apiAuth.login()
+            .then()
+            .catch((err)=>{
+                alert(err.response.data);
+            });
+    }
+    
     return (
         <SingInContainer>
             <DrivenArtsLogo />
-            <form>
+            <form onSubmit={handleLogin}>
                 <input placeholder="email" type="email" />
                 <input placeholder="senha" type="password" />
 
-                <button>Entrar</button>
+                <button type="submit">Entrar</button>
             </form>
 
             <Link to="/cadastro">
