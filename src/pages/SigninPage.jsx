@@ -1,27 +1,55 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import DrivenArtsLogo from "../components/DrivenArtsLogo"
 import apiAuth from "../services/apiAuth";
+import { useContext, useState } from "react";
+import DataContextProvider from "../contexts/Usercontext";
 
 export default function SigninPage() {
-    
-    function handleLogin(e){
+    const [email, setEmail] = useState("")
+    const [senha, setSenha] = useState("")
+    const [isDisable, setIsDisable] = useState("")
+    const { setToken } = useContext(DataContextProvider)
+    const navigate = useNavigate()
+
+    function handleLogin(e) {
         e.preventDefault();
-        apiAuth.login()
-            .then()
-            .catch((err)=>{
-                alert(err.response.data);
+        setIsDisable(true)
+        apiAuth.login({ email, senha })
+            .then(res => {
+                localStorage.setItem("token", res.data.token)
+                setToken(res.data.token)
+                navigate("/home")
+            })
+            .catch((res) => {
+                console.log(res.data)
+                alert(res.response.data);
             });
     }
-    
+
     return (
         <SingInContainer>
             <DrivenArtsLogo />
             <form onSubmit={handleLogin}>
-                <input placeholder="email" type="email" />
-                <input placeholder="senha" type="password" />
+                <input
+                    placeholder="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={isDisable}
 
-                <button type="submit">Entrar</button>
+                />
+                <input
+                    placeholder="senha"
+                    type="password"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
+                    disabled={isDisable}
+                />
+
+                <button type="submit" disabled={isDisable}>Entrar</button>
             </form>
 
             <Link to="/cadastro">

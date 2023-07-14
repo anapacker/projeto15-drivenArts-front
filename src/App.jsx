@@ -3,18 +3,22 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SignUpPage from './pages/SignUpPage'
 import SigninPage from './pages/SigninPage'
 import HomePage from './pages/HomePage'
+import DataContextProvider from './contexts/Usercontext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [token, setToken] = useState(localStorage.getItem("token"))
+  const contextValue = { token, setToken }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<SigninPage/>} />
-        <Route path='/cadastro' element={<SignUpPage/>} />
-        <Route path='/home' element={<HomePage/>} />
-      </Routes>
-    </BrowserRouter>
+    <DataContextProvider.Provider value={contextValue}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<SigninPage />} />
+          <Route path='/cadastro' element={<SignUpPage />} />
+          <Route path='/home' element={<HomePage />} />
+        </Routes>
+      </BrowserRouter>
+    </DataContextProvider.Provider>
   )
 }
 
