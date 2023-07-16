@@ -44,8 +44,8 @@ export default function ProductPage(){
 }
 
 const ContainerTitulo = styled.div`
-    padding-top: 18vh;
-    height: 20vh;
+    padding-top: 12vh;
+    height: 16vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -85,27 +85,28 @@ const ContainerDivPink = styled.div`
 `
 
 const ContainerConteudo = styled.div`
-    height: 62vh;
+    height: 72vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #eee;
 `
 const ContainerBordas = styled.div`
     width: 80vw;
-    height: 62vh;
+    height: 68vh;
     display: flex;
     flex-direction: row;
 `
 
 const ContainerFigura = styled.div`
-    height: 62vh;
+    height: 66vh;
     width: 40vw;
     display: flex;
     align-items: center;
     justify-content: center;
     //background-color: lightblue;
     img{
-        height: 54vh;
+        height: 58vh;
         width: 28vw;
         object-fit: cover;
         border-radius: 10px;
@@ -114,8 +115,8 @@ const ContainerFigura = styled.div`
     }
     img:hover{
         transform: scale(1.03);
-        height: 54vh;
-        width: 28vw;
+        height: 60vh;
+        width: 30vw;
         object-fit: cover;
     }
 `
@@ -143,7 +144,7 @@ const Estoque = styled.span`
 `
 
 const Titulo = styled.span`
-    font-size: 40px;
+    font-size: 42px;
     color: black;
     font-family: 'Garamond';
 `
