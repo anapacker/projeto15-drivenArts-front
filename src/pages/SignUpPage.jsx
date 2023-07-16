@@ -44,7 +44,7 @@ const navigate = useNavigate();
             navigate("/");
         })
         .catch((err)=>{
-            alert(err.response.data);
+            alert(err.response);
         });
     }
 

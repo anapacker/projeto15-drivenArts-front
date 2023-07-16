@@ -12,7 +12,7 @@ function login(body) {
 };
 
 function signup(body) {
-    const promise = axios.post(`${apiURL}signup`, body);
+    const promise = axios.post(`${apiURL}/signup`, body);
     return promise;
 }
 
