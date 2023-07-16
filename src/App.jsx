@@ -4,6 +4,7 @@ import SignUpPage from './pages/SignUpPage'
 import SigninPage from './pages/SigninPage'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
+import CartPage from './pages/CartPage'
 import DataContextProvider from './contexts/Usercontext'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path='/cadastro' element={<SignUpPage />} />
           <Route path='/home' element={<HomePage />} />
           <Route path='/produto/:id' element={<ProductPage/>} />
+          <Route path='/carrinho' element={<CartPage/>} />
         </Routes>
       </BrowserRouter>
     </DataContextProvider.Provider>
