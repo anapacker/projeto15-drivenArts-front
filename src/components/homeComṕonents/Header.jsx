@@ -2,32 +2,32 @@
 import { FaShoppingCart } from 'react-icons/fa';
 import styled from "styled-components";
 
-export default function Header(){
+export default function Header() {
 
     return <HeaderContainer>
-                <Logo>
-                    <h1> DrivenArts </h1>
-                </Logo>
+        <Logo>
+            <h1> DrivenArts </h1>
+        </Logo>
 
-                <nav className="menu">
-                    <ul>
-                        <li><button> Esculturas </button></li>
-                        <li><button> Ilustrações </button></li>
-                        <li><button> Quadros </button></li>
-                    </ul>
-                </nav>
+        <nav className="menu">
+            <ul>
+                <li><button> Esculturas </button></li>
+                <li><button> Ilustrações </button></li>
+                <li><button> Quadros </button></li>
+            </ul>
+        </nav>
 
-                <div className="cart-icon">
-                    <FaShoppingCart size={25}/>
-                </div>
+        <div className="cart-icon">
+            <FaShoppingCart size={25} />
+        </div>
 
-                <div className="signup-signin">
-                
-                   <button> Entrar </button> 
-                   <button> Cadastrar </button>
+        <div className="signup-signin">
 
-                </div>
-            </HeaderContainer>
+            <button> Entrar </button>
+            <button> Cadastrar </button>
+
+        </div>
+    </HeaderContainer>
 }
 
 const HeaderContainer = styled.header`
@@ -38,6 +38,7 @@ const HeaderContainer = styled.header`
     justify-content: space-around;
     align-items: center;  
     position: fixed;
+    top: 0;
 
     & > nav > ul {
         display: flex;
