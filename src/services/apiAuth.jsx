@@ -3,11 +3,7 @@ import axios from "axios";
 const apiURL = import.meta.env.VITE_API_URL;
 
 function login(body) {
-    const promise = axios.post(`${apiURL}/sign-in`, body)
-        .then(res => res.data)
-        .catch(error => {
-            alert(error.response.data)
-        })
+    const promise = axios.post(`${apiURL}/sign-in`, body);
     return promise;
 };
 
