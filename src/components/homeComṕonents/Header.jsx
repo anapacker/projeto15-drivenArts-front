@@ -50,8 +50,8 @@ export default function Header() {
             <div className="cart-icon">
                 <FaShoppingCart size={25} title="Ver carrinho de compras" onClick={() => navigate("/carrinho")} />
             </div>
-            <div className="signup-signin">
-                <button title="Fazer logout" > Sair </button>
+            <div className="signup-signin" onClick={() => navigate("/")} >
+                <button title="Fazer logout"> Sair </button>
             </div>
         </UserData>
 
@@ -74,8 +74,8 @@ export default function Header() {
                             <p> Carrinho  </p>
                         </div>
 
-                        <div className='btnMenu'>
-                            <IoMdClose size={20} title="Fazer logout" onClick={() => navigate("/carrinho")} />
+                        <div className='btnMenu' onClick={() => navigate("/")} >
+                            <IoMdClose size={20} title="Fazer logout" />
                             <p> Sair  </p>
                         </div>
             
