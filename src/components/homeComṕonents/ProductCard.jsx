@@ -6,17 +6,30 @@ export default function ProductCard(props) {
 
     const navigate = useNavigate();
 
+    const product = {
+        id: props.id,
+        nome: props.name,
+        preco: props.price,
+        estoque: props.stock,
+        categoria: props.type,
+        foto: props.image
+    }
+
     return <Product>
-        <img src={props.image} alt="Imagem do produto"></img>
-        <h3>{props.name}</h3>
-        <p>R$ {props.price.toString().replace(".", ",")}</p>
-        <div className="btnPurchase">
-            <button title="Adicionar ao carrinho" onClick={props.addToCart}>+</button>
-            <button onClick={props.buyIt}>
-                <FaShoppingCart size={13} title="Comprar" onClick={() => navigate("/carrinho")} />
-            </button>
-        </div>
-    </Product>
+        <div className="productInfo"> 
+                    <img title="Ver produto" src={props.image} alt="Imagem do produto"></img>
+                    <h3>{props.name}</h3>
+                    <p>R$ {props.price.toString().replace(".", ",")}</p>
+                </div>
+                
+                <div className="btnPurchase">
+                    <button title="Adicionar ao carrinho" onClick={() => props.addToCart(product)}>+</button>
+                    <button title="Comprar" onClick={() => props.buyIt(product)}>
+                        <FaShoppingCart size={13}/>
+                    </button>
+                </div>                
+            </Product>
+
 }
 
 const Product = styled.div`
@@ -24,8 +37,8 @@ const Product = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 150px;
-    height: 200px;
+    width: 160px;
+    height: 230px;
     margin: 15px;
     padding: 15px;
     background-color: #ABBF7EA0;
@@ -39,16 +52,25 @@ const Product = styled.div`
         background-color:#ABBF7E;
     }
 
-    & > img {
-        max-width: 100px;
-        max-height: 110px;
-        margin-top: 0;
+    .productInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 80%;
+    }
+
+    & > .productInfo > img {
+        max-width: 80px;
+        max-height: 90px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         cursor: pointer;
     }
 
-    & > h3 {
+    & > .productInfo > h3 {
         font-weight: 400;
         font-size: 15px;
+        margin-top: 5px;
     }
 
     .btnPurchase {
@@ -58,7 +80,7 @@ const Product = styled.div`
         padding: 10px;
         margin-top: 10px;
         height: 10%;
-        width: 80px;
+        width: 80%;
     }
 
     .btnPurchase > button {
@@ -81,18 +103,18 @@ const Product = styled.div`
         background-color: #636955;
     }
 
-    @media (max-width: 530px) {
-        width: 100px;
-        height: 160px;
+    @media (max-width: 600px) {
+        width: 130px;
+        height: 190px;
         margin: 15px;
         font-size: 12px;
 
-        & > img {
+        & > .productInfo > img {
             max-width: 70px;
-            max-height: 80px;
+            max-height: 70px;
         }
 
-        & > h3 {
+        & > .productInfo > h3 {
             font-weight: 400;
             font-size: 13px;
         }

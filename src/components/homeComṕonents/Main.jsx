@@ -1,21 +1,17 @@
 
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
-import { useEffect, useState } from 'react';
 import apiProducts from "../../services/apiProducts";
+import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import DataContextProvider from "../../contexts/Usercontext";
 
-
-function addProductToCart() {
-
-}
-
-function buyProduct() {
-
-}
 
 export default function Main({ categoriaSelecionada }) {
 
     const [productsList, setProductsList] = useState([])
+
 
     useEffect(() => {
         if (!categoriaSelecionada) {
@@ -30,43 +26,58 @@ export default function Main({ categoriaSelecionada }) {
             setProductsList(res.data)
         })
     }, [categoriaSelecionada])
-    /*
-    const [products, setProducts] = useState([]);
 
-    try {
-        let productsList = apiProducts.getProducts();
-        console.log(productsList);
+
+    let navigate = useNavigate();
+
+
+    const [products, setProducts] = useState([]);
+    let [cartList, setCartList] = useState([]);
+
+    useEffect(() => {
+        console.log(cartList);
+        localStorage.setItem("shoppingList", JSON.stringify(cartList));
+    }, [cartList]);
+
+    function addProductToCart(product){
+        setCartList([...cartList, product]);
     }
-    catch {
-        console.log("Deu erro!");
+
+    function buyProducts(product){
+        setCartList([product]);
     }
-    */
 
     // productsList = fillProductList(20);
-
-    return <>
-
+    
+    
+    return <MainSection>
         <Banner> </Banner >
 
         <Products id="products">
 
-            <div className="products">
-
-                {productsList.map((product) => (
-                    <ProductCard key={product._id} image={product.foto} name={product.nome} price={product.preco}
-                        addToCart={addProductToCart} buyIt={buyProduct} />
-                ))}
+            <div className="products">  
+            
+                {products.map((product, index) => (
+                    <ProductCard key={index} image={product.foto} name={product.nome} price={product.preco} 
+                                 id={product.id} stock={product.estoque} type={product.categor} addToCart={addProductToCart} buyIt={buyProducts}/>
+                ))}     
 
             </div>
 
         </Products>
-    </>
+    </MainSection>
 }
 
-const Banner = styled.div`
+const MainSection = styled.div`
+    position: relative;
+`
+
+const Banner = styled.div `
+
     background: linear-gradient(to left, #f0a9d1, #fb9a61);  
-    height: 100vh;
-    margin-bottom: 15px;
+    height: 75vh;
+    margin-top: 12vh;
+    margin-bottom: 5px;
 `
 const Products = styled.div`
     padding-top: 30px;
@@ -77,9 +88,8 @@ const Products = styled.div`
     justify-content: flex-start;
     align-items: center;    
     background: white;
-    overflow-y: scroll;
-    max-height: 70vh;
     margin-bottom: 13vh;
+    min-height: 75vh;
 
     .products {
         display: flex;
