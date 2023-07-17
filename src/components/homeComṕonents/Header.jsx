@@ -4,7 +4,9 @@ import { IoIosMenu, IoIosArrowDown, IoMdClose } from 'react-icons/io';
 import styled from "styled-components";
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import DataContextProvider from '../../contexts/Usercontext';
+import apiAuth from '../../services/apiAuth';
 
 export default function Header() {
 
@@ -12,9 +14,24 @@ export default function Header() {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    const {token} = useContext(DataContextProvider);
+
     function changeMenu() {
         setIsMenuOpen(!isMenuOpen);
     }
+
+    function logout(){
+        apiAuth.signout(token)
+        .then(res=>{
+            console.log(res.data);
+            navigate('/');
+        }
+        )
+        .catch(err=>{
+            alert(err.response.data);
+        })
+    }
+
 
     return <HeaderContainer>
         <Logo>
@@ -34,7 +51,7 @@ export default function Header() {
                 <FaShoppingCart size={25} title="Ver carrinho de compras" onClick={() => navigate("/carrinho")} />
             </div>
             <div className="signup-signin">
-                <button title="Fazer logout" > Sair </button>
+                <button title="Fazer logout" onClick={logout}> Sair </button>
             </div>
         </UserData>
 
@@ -57,7 +74,7 @@ export default function Header() {
                             <p> Carrinho  </p>
                         </div>
 
-                        <div className='btnMenu'>
+                        <div className='btnMenu' onClick={logout}>
                             <IoMdClose size={20} title="Fazer logout" onClick={() => navigate("/carrinho")} />
                             <p> Sair  </p>
                         </div>

@@ -1,17 +1,48 @@
 import { styled } from "styled-components"
 import Header from "../components/homeComṕonents/Header"
+import { useParams } from "react-router-dom"
+import { useEffect, useContext, useState } from "react";
+import apiProducts from "../services/apiProducts";
+import DataContextProvider from "../contexts/Usercontext";
 
 export default function ProductPage(){
+    const {id} = useParams();
+    const { token } = useContext(DataContextProvider);
+    const [produto, setProduto] = useState({_id:'',
+    nome:'',preco:0,estoque:0,categoria:'',foto:''});
+
+    useEffect(()=>{
+        apiProducts.getProduct(id, token)
+        .then(res=>{
+            setProduto(res.data);
+            console.log(res.data);
+        })
+        .catch(err=>{
+            console.log(err.response.data);
+        })
+    },[])
     
-    
-    
-    return(
-        <>
+    if(produto === {}){
+        return (<>
+        <Header/>
+        <ContainerTitulo>
+                <ContainerDiv>
+                    <h1>Carregando ...</h1>
+                    <h2>{produto.categoria}</h2>
+                </ContainerDiv>
+                <ContainerDivPink>
+                </ContainerDivPink>
+            </ContainerTitulo>
+        </>)
+     
+    }else{   
+        return (
+            <>
             <Header/>
             <ContainerTitulo>
                 <ContainerDiv>
-                    <h1>Nome da obra de arte aqui...</h1>
-                    <h2>Categoria</h2>
+                    <h1>{produto.nome}</h1>
+                    <h2>{produto.categoria}</h2>
                 </ContainerDiv>
                 <ContainerDivPink>
                 </ContainerDivPink>
@@ -19,16 +50,16 @@ export default function ProductPage(){
             <ContainerConteudo>
                 <ContainerBordas>
                     <ContainerFigura>
-                        <img src="https://bobcorp.nyc3.digitaloceanspaces.com/rabiscodahistoria/2023/06/Fotos-escultura-marmore-mulher-vestido-cabelo.webp" alt="" />
+                        <img src={produto.foto} alt={produto.nome} />
                     </ContainerFigura>
                     <ContainerHUB>
                         <COntainerTItulo>
-                            <Titulo> Nome da obra de arte novamente</Titulo>
-                            <Estoque>#02 em estoque</Estoque>
+                            <Titulo> {produto.nome}</Titulo>
+                            <Estoque>{produto.estoque} em estoque</Estoque>
                         </COntainerTItulo>
                         <ContainerPreco>
                             <Preco>
-                                R$ <span>X.XXX,XX</span>
+                                R$ <span>{produto.preco.toFixed(2)}</span>
                             </Preco>
                         </ContainerPreco>
                         <ContainerButtons>
@@ -40,7 +71,9 @@ export default function ProductPage(){
                 </ContainerBordas>
             </ContainerConteudo>
         </>
-    )
+        )
+    }
+
 }
 
 const ContainerTitulo = styled.div`
@@ -107,7 +140,7 @@ const ContainerFigura = styled.div`
     //background-color: lightblue;
     img{
         height: 58vh;
-        width: 28vw;
+        width: 35vw;
         object-fit: cover;
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -116,7 +149,7 @@ const ContainerFigura = styled.div`
     img:hover{
         transform: scale(1.03);
         height: 60vh;
-        width: 30vw;
+        width: 37vw;
         object-fit: cover;
     }
 `
