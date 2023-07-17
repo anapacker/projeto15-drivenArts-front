@@ -25,7 +25,7 @@ const Product = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 150px;
-    height: 210px;
+    height: 220px;
     margin: 15px;
     padding: 15px;
     background-color: #ABBF7EA0;
@@ -43,6 +43,7 @@ const Product = styled.div`
         max-width: 100px;
         max-height: 110px;
         margin-top: 0;
+        margin-bottom: 5px;
         cursor: pointer;
     }
 

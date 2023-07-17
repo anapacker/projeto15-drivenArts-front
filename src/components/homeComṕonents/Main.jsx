@@ -5,14 +5,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import apiProducts from "../../services/apiProducts"; 
 
+
+/*
 function fillProductList (numberItens){
     const prod = [];
     for (let i=0; i<numberItens; i++){
         prod.push({image: "https://bahguri.rs/home/wp-content/uploads/2020/02/Pe%C3%A7as-da-s%C3%A9rie-Fam%C3%ADlia-de-Marcos-Vaandrade-cr%C3%A9dito-divulga%C3%A7%C3%A3o-683x1024.png",
-                             name: "Irmandade", 
-                             price: 2800.99});
+        name: "Irmandade", 
+        price: 2800.99});
     }   return prod;
 }
+*/
 
 function addProductToCart(){
 
@@ -22,21 +25,30 @@ function buyProduct(){
 
 }
 
+
+const apiURL = import.meta.env.VITE_API_URL;
+
 export default function Main(){
 
-    /*
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+    };
+
     const [products, setProducts] = useState([]);
 
-    try {
-        let productsList = apiProducts.getProducts();
-        console.log(productsList);
-    }
-    catch {
-        console.log("Deu erro!");
-    }
-    */
-
-    let productsList = fillProductList(20);    
+    useEffect(() => {
+        const promise = axios.get(`${apiURL}/produtos/todos`, config)
+                        .then(res => {
+                            setProducts(res.data);
+                            console.log(products)
+                        })
+                        .catch(error => {
+                            alert(error.response.data)
+                        }) 
+    }, []);  
     
     return <MainSection>
 
@@ -45,12 +57,12 @@ export default function Main(){
         <Products id="products">
 
             <div className="products">  
-
-                {productsList.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} 
+            
+                {products.map((product, index) => (
+                    <ProductCard key={index} image={product.foto} name={product.nome} price={product.preco} 
                                  addToCart={addProductToCart} buyIt={buyProduct}/>
-                ))}      
-                                        
+                ))}     
+
             </div>
 
         </Products>
