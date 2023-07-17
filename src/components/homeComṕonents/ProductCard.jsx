@@ -2,21 +2,21 @@ import styled from "styled-components";
 import { FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard(props){
+export default function ProductCard(props) {
 
     const navigate = useNavigate();
 
     return <Product>
-                <img src={props.image} alt="Imagem do produto"></img>
-                <h3>{props.name}</h3>
-                <p>R$ {props.price.toString().replace(".", ",")}</p>
-                <div className="btnPurchase">
-                    <button title="Adicionar ao carrinho" onClick={props.addToCart}>+</button>
-                    <button onClick={props.buyIt}>
-                        <FaShoppingCart size={13} title="Comprar" onClick={() => navigate("/carrinho")}/>
-                    </button>
-                </div>                
-            </Product>
+        <img src={props.image} alt="Imagem do produto"></img>
+        <h3>{props.name}</h3>
+        <p>R$ {props.price.toString().replace(".", ",")}</p>
+        <div className="btnPurchase">
+            <button title="Adicionar ao carrinho" onClick={props.addToCart}>+</button>
+            <button onClick={props.buyIt}>
+                <FaShoppingCart size={13} title="Comprar" onClick={() => navigate("/carrinho")} />
+            </button>
+        </div>
+    </Product>
 }
 
 const Product = styled.div`

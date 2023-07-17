@@ -2,28 +2,34 @@
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import apiProducts from "../../services/apiProducts"; 
+import apiProducts from "../../services/apiProducts";
 
-function fillProductList (numberItens){
-    const prod = [];
-    for (let i=0; i<numberItens; i++){
-        prod.push({image: "https://bahguri.rs/home/wp-content/uploads/2020/02/Pe%C3%A7as-da-s%C3%A9rie-Fam%C3%ADlia-de-Marcos-Vaandrade-cr%C3%A9dito-divulga%C3%A7%C3%A3o-683x1024.png",
-                             name: "Irmandade", 
-                             price: 2800.99});
-    }   return prod;
-}
 
-function addProductToCart(){
+function addProductToCart() {
 
 }
 
-function buyProduct(){
+function buyProduct() {
 
 }
 
-export default function Main(){
+export default function Main({ categoriaSelecionada }) {
 
+    const [productsList, setProductsList] = useState([])
+
+    useEffect(() => {
+        if (!categoriaSelecionada) {
+            const promise = apiProducts.getProducts()
+            promise.then((res) => {
+                setProductsList(res.data)
+            })
+            return
+        }
+        const promise = apiProducts.getProductsByCategory(categoriaSelecionada)
+        promise.then((res) => {
+            setProductsList(res.data)
+        })
+    }, [categoriaSelecionada])
     /*
     const [products, setProducts] = useState([]);
 
@@ -36,33 +42,33 @@ export default function Main(){
     }
     */
 
-    let productsList = fillProductList(20);    
-    
+    // productsList = fillProductList(20);
+
     return <>
 
         <Banner> </Banner >
 
         <Products id="products">
 
-            <div className="products">  
+            <div className="products">
 
-                {productsList.map((product, index) => (
-                    <ProductCard key={index} image={product.image} name={product.name} price={product.price} 
-                                 addToCart={addProductToCart} buyIt={buyProduct}/>
-                ))}      
-                                        
+                {productsList.map((product) => (
+                    <ProductCard key={product._id} image={product.foto} name={product.nome} price={product.preco}
+                        addToCart={addProductToCart} buyIt={buyProduct} />
+                ))}
+
             </div>
 
         </Products>
     </>
 }
 
-const Banner = styled.div `
+const Banner = styled.div`
     background: linear-gradient(to left, #f0a9d1, #fb9a61);  
     height: 100vh;
     margin-bottom: 15px;
 `
-const Products = styled.div `
+const Products = styled.div`
     padding-top: 30px;
     padding-bottom: 30px;
     display: flex;

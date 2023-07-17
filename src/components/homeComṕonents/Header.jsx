@@ -6,16 +6,19 @@ import { Link, animateScroll as scroll } from 'react-scroll';
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
-export default function Header() {
+
+export default function Header({ categoriaSelecionada, setCategoriaSelecionada }) {
 
     const navigate = useNavigate();
-
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     function changeMenu() {
         setIsMenuOpen(!isMenuOpen);
     }
 
+    function changeCategory(categoria) {
+        setCategoriaSelecionada(categoria)
+    }
     return <HeaderContainer>
         <Logo>
             <h1> DrivenArts </h1>
@@ -23,9 +26,9 @@ export default function Header() {
 
         <nav>
             <Menu>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} > Esculturas </Link> </li>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Ilustrações </Link> </li>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Quadros </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('escultura')}> Esculturas </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('ilustracao')}> Ilustrações </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('quadro')}> Quadros </Link> </li>
             </Menu>
         </nav>
 
@@ -67,7 +70,6 @@ export default function Header() {
                 </Options>)}
 
         </MobileMenu>
-
     </HeaderContainer>
 }
 
