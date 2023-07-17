@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard(props){
+export default function ProductCard(props) {
 
     const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ export default function ProductCard(props){
     }
 
     return <Product>
-                <div className="productInfo"> 
+        <div className="productInfo"> 
                     <img title="Ver produto" src={props.image} alt="Imagem do produto"></img>
                     <h3>{props.name}</h3>
                     <p>R$ {props.price.toString().replace(".", ",")}</p>
@@ -29,6 +29,7 @@ export default function ProductCard(props){
                     </button>
                 </div>                
             </Product>
+
 }
 
 const Product = styled.div`

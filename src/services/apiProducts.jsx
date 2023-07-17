@@ -4,15 +4,27 @@ import createConfig from "./createConfig";
 const apiURL = import.meta.env.VITE_API_URL;
 
 
-function getProducts(token) {
+function getProducts() {
+    const token = localStorage.getItem("token")
 
-    const promise = axios.get(`${apiURL}/produtos/todos`, token)
-        .then(res => res.data)
-        .catch(error => {
-            alert(error.response.data)
-        }) 
+    const header = {
+        headers: { "Authorization": `Bearer ${token}` }
+    }
+
+    const promise = axios.get(`${apiURL}/produtos/todos`, header)
     return promise;
 };
+
+function getProductsByCategory(categoria) {
+    const token = localStorage.getItem("token")
+
+    const header = {
+        headers: { "Authorization": `Bearer ${token}` }
+    }
+
+    const promise = axios.get(`${apiURL}/categoria/${categoria}`, header)
+    return promise
+}
 
 
 function getProduct(id, token){
@@ -35,7 +47,6 @@ function getProductsList(token) {
         }) 
     return promise;
 };
-
-
-const apiProducts = { getProducts, getProduct, getProductsList};
+const apiProducts = { getProducts, getProductsByCategory, getProduct,getProductsList};
 export default apiProducts;
+

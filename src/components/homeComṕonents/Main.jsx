@@ -1,16 +1,35 @@
 
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
+import apiProducts from "../../services/apiProducts";
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import DataContextProvider from "../../contexts/Usercontext";
 
-const apiURL = import.meta.env.VITE_API_URL;
 
-export default function Main(){
+export default function Main({ categoriaSelecionada }) {
+
+    const [productsList, setProductsList] = useState([])
+
+
+    useEffect(() => {
+        if (!categoriaSelecionada) {
+            const promise = apiProducts.getProducts()
+            promise.then((res) => {
+                setProductsList(res.data)
+            })
+            return
+        }
+        const promise = apiProducts.getProductsByCategory(categoriaSelecionada)
+        promise.then((res) => {
+            setProductsList(res.data)
+        })
+    }, [categoriaSelecionada])
+
 
     let navigate = useNavigate();
+
 
     const [products, setProducts] = useState([]);
     let [cartList, setCartList] = useState([]);
@@ -28,23 +47,10 @@ export default function Main(){
         setCartList([product]);
     }
 
-    const token = localStorage.getItem("token");
-    const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-    };
-
-    const promise = axios.get(`${apiURL}/produtos/todos`, config)
-                    .then(res => {
-                      setProducts(res.data);
-                    })
-                    .catch(error => {
-                        alert(error.response.data)
-                    })     
+    // productsList = fillProductList(20);
+    
     
     return <MainSection>
-
         <Banner> </Banner >
 
         <Products id="products">
@@ -67,12 +73,13 @@ const MainSection = styled.div`
 `
 
 const Banner = styled.div `
+
     background: linear-gradient(to left, #f0a9d1, #fb9a61);  
     height: 75vh;
     margin-top: 12vh;
     margin-bottom: 5px;
 `
-const Products = styled.div `
+const Products = styled.div`
     padding-top: 30px;
     padding-bottom: 30px;
     display: flex;

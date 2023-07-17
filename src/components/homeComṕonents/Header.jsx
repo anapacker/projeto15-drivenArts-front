@@ -8,16 +8,23 @@ import { useContext, useState } from 'react';
 import DataContextProvider from '../../contexts/Usercontext';
 import apiAuth from '../../services/apiAuth';
 
-export default function Header() {
 
-    let navigate = useNavigate();
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Header({ categoriaSelecionada, setCategoriaSelecionada }) {
+
+
+    const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const {token} = useContext(DataContextProvider);
 
     function changeMenu() {
         setIsMenuOpen(!isMenuOpen);
+    }
+
+
+    function changeCategory(categoria) {
+        setCategoriaSelecionada(categoria)
     }
 
     function logout(){
@@ -32,7 +39,6 @@ export default function Header() {
         })
     }
 
-
     return <HeaderContainer>
         <Logo onClick={() => navigate("/home")}>
             <h1> DrivenArts </h1>
@@ -40,9 +46,9 @@ export default function Header() {
 
         <nav>
             <Menu>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} > Esculturas </Link> </li>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Ilustrações </Link> </li>
-                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Quadros </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('escultura')}> Esculturas </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('ilustracao')}> Ilustrações </Link> </li>
+                <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => changeCategory('quadro')}> Quadros </Link> </li>
             </Menu>
         </nav>
 
@@ -84,7 +90,6 @@ export default function Header() {
             }
 
         </MobileMenu>
-
     </HeaderContainer>
 }
 
