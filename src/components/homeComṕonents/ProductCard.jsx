@@ -7,13 +7,13 @@ export default function ProductCard(props){
     const navigate = useNavigate();
 
     return <Product>
-                <img src={props.image} alt="Imagem do produto"></img>
+                <img title="Ver produto" src={props.image} alt="Imagem do produto"></img>
                 <h3>{props.name}</h3>
                 <p>R$ {props.price.toString().replace(".", ",")}</p>
                 <div className="btnPurchase">
                     <button title="Adicionar ao carrinho" onClick={props.addToCart}>+</button>
-                    <button onClick={props.buyIt}>
-                        <FaShoppingCart size={13} title="Comprar" onClick={() => navigate("/carrinho")}/>
+                    <button title="Comprar" onClick={props.buyIt}>
+                        <FaShoppingCart size={13} onClick={() => navigate("/carrinho")}/>
                     </button>
                 </div>                
             </Product>
@@ -25,7 +25,7 @@ const Product = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 150px;
-    height: 200px;
+    height: 210px;
     margin: 15px;
     padding: 15px;
     background-color: #ABBF7EA0;
@@ -58,7 +58,7 @@ const Product = styled.div`
         padding: 10px;
         margin-top: 10px;
         height: 10%;
-        width: 80px;
+        width: 80%;
     }
 
     .btnPurchase > button {
@@ -81,9 +81,9 @@ const Product = styled.div`
         background-color: #636955;
     }
 
-    @media (max-width: 530px) {
-        width: 100px;
-        height: 160px;
+    @media (max-width: 600px) {
+        width: 130px;
+        height: 190px;
         margin: 15px;
         font-size: 12px;
 

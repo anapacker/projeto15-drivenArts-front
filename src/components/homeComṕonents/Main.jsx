@@ -38,7 +38,7 @@ export default function Main(){
 
     let productsList = fillProductList(20);    
     
-    return <>
+    return <MainSection>
 
         <Banner> </Banner >
 
@@ -54,13 +54,18 @@ export default function Main(){
             </div>
 
         </Products>
-    </>
+    </MainSection>
 }
+
+const MainSection = styled.div`
+    position: relative;
+`
 
 const Banner = styled.div `
     background: linear-gradient(to left, #f0a9d1, #fb9a61);  
-    height: 100vh;
-    margin-bottom: 15px;
+    height: 75vh;
+    margin-top: 12vh;
+    margin-bottom: 5px;
 `
 const Products = styled.div `
     padding-top: 30px;
@@ -71,8 +76,6 @@ const Products = styled.div `
     justify-content: flex-start;
     align-items: center;    
     background: white;
-    overflow-y: scroll;
-    max-height: 70vh;
     margin-bottom: 13vh;
 
     .products {

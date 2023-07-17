@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export default function Header() {
 
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,7 +17,7 @@ export default function Header() {
     }
 
     return <HeaderContainer>
-        <Logo>
+        <Logo onClick={() => navigate("/home")}>
             <h1> DrivenArts </h1>
         </Logo>
 
@@ -34,7 +34,7 @@ export default function Header() {
                 <FaShoppingCart size={25} title="Ver carrinho de compras" onClick={() => navigate("/carrinho")} />
             </div>
             <div className="signup-signin">
-                <button title="Fazer logout" > Sair </button>
+                <button title="Fazer logout" onClick={() => navigate("/")} > Sair </button>
             </div>
         </UserData>
 
@@ -43,7 +43,7 @@ export default function Header() {
             {isMenuOpen ? < IoIosArrowDown size={40} title="Abrir menu" onClick={changeMenu} /> : < IoIosMenu size={40} title="Abrir menu" onClick={changeMenu} />}
 
             {isMenuOpen &&
-                (<Options isOpen={isMenuOpen} >
+                <Options isOpen={isMenuOpen} >
                     <ul>
                         <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Esculturas </Link> </li>
                         <li> <Link className="btnMenu" to="products" offset={-(window.innerHeight * 0.12)} smooth={true} duration={500} onClick={() => setIsMenuOpen(false)}> Ilustrações </Link> </li>
@@ -52,19 +52,18 @@ export default function Header() {
 
                     <div className='userOptions'>
 
-                        <div className='btnMenu'>
-                            <FaShoppingCart size={20} title="Ver carrinho de compras" onClick={() => navigate("/carrinho")} />
+                        <div className='btnMenu' onClick={() => navigate("/carrinho")}>
+                            <FaShoppingCart size={20} title="Ver carrinho de compras"/>
                             <p> Carrinho  </p>
                         </div>
 
-                        <div className='btnMenu'>
-                            <IoMdClose size={20} title="Fazer logout" onClick={() => navigate("/carrinho")} />
+                        <div className='btnMenu' onClick={() => navigate("/")} >
+                            <IoMdClose size={20} title="Fazer logout"/>
                             <p> Sair  </p>
                         </div>
-
-
-                    </div>
-                </Options>)}
+                    </div> 
+                 </Options>
+            }
 
         </MobileMenu>
 
@@ -73,6 +72,9 @@ export default function Header() {
 
 const Logo = styled.div`
     padding-left: 20px;
+    cursor: pointer;
+    user-select: none;
+    
     & > h1 {
         font-family: 'Pacifico', cursive;
         font-weight: 500;
@@ -92,7 +94,8 @@ const HeaderContainer = styled.header`
     align-items: center;  
     position: fixed;
     border-bottom: 1px solid gray;
-    z-index: 1;    
+    z-index: 1;   
+    top: 0; 
 `
 
 const Menu = styled.ul`
@@ -169,6 +172,7 @@ const UserData = styled.div`
 const MobileMenu = styled.div`
 
     cursor: pointer;
+    display: none;
 
     @media (max-width: 650px) {
         display: inline;
@@ -185,13 +189,14 @@ const Options = styled.div`
     flex-direction: column;
     justify-content: space-between;
     right: 0;
-    top: 12vh;
+    top: 100%;
     margin-right: 0;
     padding-right: 0;
-    width: 40vw;
-    height: 30vh;
-    background-color: #e7e7e7;
+    width: 50vw;
+    height: 35vh;
+    background-color: white;
     color: black;
+    border-top: 1px solid gray;
 
     & .btnMenu {
         color: black;
@@ -215,7 +220,7 @@ const Options = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         height: 40%;
         width: 70%;
     }
