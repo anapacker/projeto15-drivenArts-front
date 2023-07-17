@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Product from "./Product";
 import ProductMobile from "./ProductMobile";
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function fillProductList (numberItens){
     const prod = [];
@@ -16,16 +17,30 @@ function fillProductList (numberItens){
 
 export default function CartData(props){
 
+    let navigate = useNavigate();
+
     const user = {
         image: "https://www.rd.com/wp-content/uploads/2017/10/These-Funny-Dog-Videos-Are-the-Break-You-Need-Right-Now_493370860-Jenn_C.jpg",
-        name: "Igor Velmud Bandero",
-        email: "IgorBandero@gmail.com",
-        phone: "(48) 99999-9999"
+        name: "Nome do Usuário",
+        email: "email@gmail.com",
+        phone: "(99) 99999-9999"
     }
 
-    let productsList = fillProductList(5);   
+    let productsList = localStorage.getItem('shoppingList');
+    const lista = JSON.parse(productsList);
+    
+    let soma = 0;
+
+    lista.forEach((produto) => 
+        soma += produto.preco)
+
 
     const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        console.log(total);
+    }, [total]);
+
 
     return <CartContainer>
 
@@ -50,23 +65,23 @@ export default function CartData(props){
                 </ProductsHeader>
                 
                 <ProductsList>
-                    {productsList.map((product, index) => (
-                        <Product key={index} image={product.image} name={product.name} price={product.price} numItens={product.numItens} />
+                    {lista.map((product, index) => (
+                        <Product key={index} image={product.foto} name={product.nome} price={product.preco} numItens={1} />
                     ))}     
                 </ProductsList>
                     
                 <ProductsListMobile>
                     <h2> Itens selecionados: </h2>
-                    {productsList.map((product, index) => (
-                        <ProductMobile key={index} image={product.image} name={product.name} price={product.price} numItens={product.numItens} />
+                    {lista.map((product, index) => (
+                        <ProductMobile key={index} image={product.foto} name={product.nome} price={product.preco} numItens={1} />
                     ))}   
                 </ProductsListMobile>
 
                 <div className="deliveryInfo">
-                    <h2> Total: {total} </h2>
+                    <h2> Total: R$ {soma} </h2>
                     <div>
-                        <button className="finalBtn" title="Finalizar compra">Continuar Comprando</button>
-                        <button title="Continuar comprando"> Finalizar Compra</button>
+                        <button className="finalBtn" title="Finalizar compra" onClick={() => navigate("/home")}>Continuar Comprando</button>
+                        <button title="Continuar comprando" > Finalizar Compra</button>
                     </div>
                     
                 </div>

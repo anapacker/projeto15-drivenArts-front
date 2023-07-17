@@ -17,7 +17,7 @@ export default function Main(){
 
     useEffect(() => {
         console.log(cartList);
-        localStorage.setItem("shoppingList", cartList);
+        localStorage.setItem("shoppingList", JSON.stringify(cartList));
     }, [cartList]);
 
     function addProductToCart(product){

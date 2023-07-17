@@ -9,7 +9,7 @@ export default function ProductCard(props){
     const product = {
         id: props.id,
         nome: props.name,
-        price: props.price,
+        preco: props.price,
         estoque: props.stock,
         categoria: props.type,
         foto: props.image
