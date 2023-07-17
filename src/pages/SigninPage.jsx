@@ -19,7 +19,6 @@ export default function SigninPage() {
             .then(res => {
                 localStorage.setItem("token", res.data.token)
                 setToken(res.data.token)
-                console.log(res.data.token)
                 navigate("/home")
             })
             .catch((res) => {

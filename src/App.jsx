@@ -12,17 +12,18 @@ function App() {
   const contextValue = { token, setToken }
 
   return (
-    <DataContextProvider.Provider value={contextValue}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<SigninPage />} />
-          <Route path='/cadastro' element={<SignUpPage />} />
-          <Route path='/home' element={<HomePage />} />
-          <Route path='/produto/:id' element={<ProductPage/>} />
-          <Route path='/carrinho' element={<CartPage/>} />
-        </Routes>
-      </BrowserRouter>
-    </DataContextProvider.Provider>
+    
+      <DataContextProvider.Provider value={contextValue}>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<SigninPage />} />
+              <Route path='/cadastro' element={<SignUpPage />} />
+              <Route path='/home' element={<HomePage />} />
+              <Route path='/produto/:id' element={<ProductPage/>} />
+              <Route path='/carrinho' element={<CartPage/>} />
+            </Routes>
+          </BrowserRouter>  
+      </DataContextProvider.Provider>
   )
 }
 

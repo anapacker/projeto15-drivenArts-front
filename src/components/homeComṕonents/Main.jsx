@@ -1,34 +1,32 @@
 
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
-import { useEffect, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import apiProducts from "../../services/apiProducts"; 
-
-
-/*
-function fillProductList (numberItens){
-    const prod = [];
-    for (let i=0; i<numberItens; i++){
-        prod.push({image: "https://bahguri.rs/home/wp-content/uploads/2020/02/Pe%C3%A7as-da-s%C3%A9rie-Fam%C3%ADlia-de-Marcos-Vaandrade-cr%C3%A9dito-divulga%C3%A7%C3%A3o-683x1024.png",
-        name: "Irmandade", 
-        price: 2800.99});
-    }   return prod;
-}
-*/
-
-function addProductToCart(){
-
-}
-
-function buyProduct(){
-
-}
-
+import DataContextProvider from "../../contexts/Usercontext";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
 export default function Main(){
+
+    let navigate = useNavigate();
+
+    const [products, setProducts] = useState([]);
+    let [cartList, setCartList] = useState([]);
+
+    useEffect(() => {
+        console.log(cartList);
+        localStorage.setItem("shoppingList", cartList);
+    }, [cartList]);
+
+    function addProductToCart(product){
+        setCartList([...cartList, product]);
+    }
+
+    function buyProducts(product){
+        setCartList([product]);
+    }
 
     const token = localStorage.getItem("token");
     const config = {
@@ -37,18 +35,13 @@ export default function Main(){
         }
     };
 
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const promise = axios.get(`${apiURL}/produtos/todos`, config)
-                        .then(res => {
-                            setProducts(res.data);
-                            console.log(products)
-                        })
-                        .catch(error => {
-                            alert(error.response.data)
-                        }) 
-    }, []);  
+    const promise = axios.get(`${apiURL}/produtos/todos`, config)
+                    .then(res => {
+                      setProducts(res.data);
+                    })
+                    .catch(error => {
+                        alert(error.response.data)
+                    })     
     
     return <MainSection>
 
@@ -60,7 +53,7 @@ export default function Main(){
             
                 {products.map((product, index) => (
                     <ProductCard key={index} image={product.foto} name={product.nome} price={product.preco} 
-                                 addToCart={addProductToCart} buyIt={buyProduct}/>
+                                 id={product.id} stock={product.estoque} type={product.categor} addToCart={addProductToCart} buyIt={buyProducts}/>
                 ))}     
 
             </div>
@@ -89,6 +82,7 @@ const Products = styled.div `
     align-items: center;    
     background: white;
     margin-bottom: 13vh;
+    min-height: 75vh;
 
     .products {
         display: flex;

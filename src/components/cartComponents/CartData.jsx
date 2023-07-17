@@ -23,7 +23,7 @@ export default function CartData(props){
         phone: "(48) 99999-9999"
     }
 
-    let productsList = fillProductList(5);
+    let productsList = fillProductList(5);   
 
     const [total, setTotal] = useState(0);
 
